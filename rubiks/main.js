@@ -387,7 +387,7 @@ function init() {
             setTimeout(doSolve, 1);
         }
     };
-    document.getElementById("rotate").onclick = function() { tweener = rotateWholeCube(cubes, scene) || tweener; };
+    //document.getElementById("rotate").onclick = function() { tweener = rotateWholeCube(cubes, scene) || tweener; };
 }
              
 function rotateAroundWorldAxis(object, axis, radians) {
