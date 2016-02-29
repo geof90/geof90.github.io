@@ -384,7 +384,7 @@ function init() {
             }
         }
         
-        if (!cube.isSolved()) {
+        if (!solver.isSolved()) {
             setTimeout(doSolve, 1);
         }
     };
