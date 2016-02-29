@@ -384,7 +384,9 @@ function init() {
             }
         }
         
-        setTimeout(doSolve, 1);
+        if (!cube.isSolved()) {
+            setTimeout(doSolve, 1);
+        }
     };
     document.getElementById("rotate").onclick = function() { tweener = rotateWholeCube(cubes, scene) || tweener; };
 }
