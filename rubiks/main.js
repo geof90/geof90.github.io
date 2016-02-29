@@ -260,11 +260,10 @@ function init() {
     scene.add(ambientLight);
     
     camera.position.x = -35;
-    camera.position.y = 17;
+    camera.position.y = 20;
     camera.position.z = 16;
     
     var orbitControl = new THREE.OrbitControls(camera, renderer.domElement);
-    orbitControl.target = new THREE.Vector3(0, -3, 0);
     orbitControl.enablePan = false;
     
     document.getElementById("viewport").appendChild(renderer.domElement);
