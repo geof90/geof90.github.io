@@ -354,10 +354,10 @@ function init() {
     document.getElementById("shuffle").onclick = function() { shuffle(cubes, scene); };
     document.getElementById("solve").onclick = function() {
         function doSolve() {
+            document.getElementById("overlay").style.display = "";
             if (solverInitialized) {
-                document.getElementById("overlay").style.display = "none";
-                
                 Cube.asyncSolve(solver, function(solutionString) {
+                    document.getElementById("overlay").style.display = "none";
                     var solution = solutionString.split(" ");
                     var nextAction = function() {
                         if (solution.length) {
@@ -380,7 +380,6 @@ function init() {
                     nextAction();
                 }); 
             } else {
-                document.getElementById("overlay").style.display = "";
                 setTimeout(doSolve, 100);
             }
         }
