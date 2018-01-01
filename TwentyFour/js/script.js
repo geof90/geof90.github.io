@@ -118,26 +118,63 @@ function solve(dontShow) {
                             pos[3] = operators[j];
                             for (var k = 0; k < operators.length; k++) {
                                 pos[5] = operators[k];
+                                
                                 var acc = pos[0];
                                 var step1 = acc;
                                 acc = eval(acc + pos[1] + pos[2]);
                                 var step2 = acc;
-                                if (step2 % 1 !== 0 || step2 < 0) continue;
-                                acc = eval(acc + pos[3] + pos[4]);
-                                var step3 = acc;
-                                if (step3 % 1 !== 0 || step3 < 0) continue;
-                                acc = eval(acc + pos[5] + pos[6]);
-                                var step4 = acc;
-                                if (acc == 24) {
-                                    if (!dontShow) {
-                                        var solution = "";
-                                        solution += step1 + " " + pos[1] + " " + pos[2] + " = " + step2 + "<br>";
-                                        solution += step2 + " " + pos[3] + " " + pos[4] + " = " + step3 + "<br>";
-                                        solution += step3 + " " + pos[5] + " " + pos[6] + " = " + step4 + "<br>";
-                                        solutionHolder.innerHTML = solution;
-                                    }
+                                if (isWhole(step2)) {
+                                    acc = eval(acc + pos[3] + pos[4]);
+                                    var step3 = acc;
+                                    if (isWhole(step3)) {
+                                        acc = eval(acc + pos[5] + pos[6]);
+                                        var step4 = acc;
+                                        if (acc == 24) {
+                                            // a op b op c op d case
+                                            if (!dontShow) {
+                                                var solution = "";
+                                                solution += step1 + " " + pos[1] + " " + pos[2] + " = " + step2 + "<br>";
+                                                solution += step2 + " " + pos[3] + " " + pos[4] + " = " + step3 + "<br>";
+                                                solution += step3 + " " + pos[5] + " " + pos[6] + " = " + step4 + "<br>";
+                                                solutionHolder.innerHTML = solution;
+                                            }
 
-                                    return true;
+                                            return true;
+                                        } else {
+                                            // a op (b op c op d) case
+                                            acc = eval(pos[6] + pos[5] + step3);
+                                            if (acc == 24) {
+                                                if (!dontShow) {
+                                                    var solution = "";
+                                                    solution += step1 + " " + pos[1] + " " + pos[2] + " = " + step2 + "<br>";
+                                                    solution += step2 + " " + pos[3] + " " + pos[4] + " = " + step3 + "<br>";
+                                                    solution += pos[6] + " " + pos[5] + " " + step3 + " = " + acc + "<br>";
+                                                    solutionHolder.innerHTML = solution;
+                                                }
+
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // a op b op (c op d) case
+                                if (isWhole(step2)) {
+                                    var acc2 = eval(pos[4] + pos[5] + pos[6]);
+                                    if (isWhole(acc2)) {
+                                        acc = eval(step2 + pos[3] + acc2);
+                                        if (acc == 24) {
+                                            if (!dontShow) {
+                                                var solution = "";
+                                                solution += step1 + " " + pos[1] + " " + pos[2] + " = " + step2 + "<br>";
+                                                solution += pos[4] + " " + pos[5] + " " + pos[6] + " = " + acc2 + "<br>";
+                                                solution += step2 + " " + pos[3] + " " + acc2 + " = " + acc + "<br>";
+                                                solutionHolder.innerHTML = solution;
+                                            }
+
+                                            return true;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -148,6 +185,10 @@ function solve(dontShow) {
     }
     
     return false;
+}
+
+function isWhole(num) {
+    return num % 1 === 0 && num >=0;
 }
 
 newPile();
