@@ -20,7 +20,7 @@ function newPile() {
     var append = "";
     selected = [];
     for (var i = 0; i < 4; i++) {
-        append += "<img src=\"img/" + cardsImages[i].img + "\">";
+        append += "<img src=\"img/" + cardsImages[i].img + "\" class=\"image\">";
         selected.push(cardsImages[i].val);
     }
 
