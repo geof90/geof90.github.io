@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TwentyFour</title>
+    <meta name="description" content="The TwentyFour (24) card game">
+    <meta name="author" content="Geoffrey Goh">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <!--[if lt IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        
+        <h1 class="text-center">TwentyFour</h1>
+        <p class="text-center">Add, subtract, multiply or divide, create an equation whose result is 24!</p>
+        <div class="row">
+            <div class="col-md-12 text-center" id="cards"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <br>
+                <button type="button" class="btn btn-default" onclick="newPile()">New Pile</button>
+                <button type="button" class="btn btn-info" onclick="solve()">Solve!</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center" id="solution"></h3>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
