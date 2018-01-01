@@ -2,7 +2,10 @@ var cardsHolder = document.getElementById("cards");
 var solutionHolder = document.getElementById("solution");
 var cardsImages = [];
 var suits = ["Clubs", "Diamonds", "Hearts", "Spades"];
-var operators = ["+", "-", "*", "/"];
+var operators = [
+    "+", "-", "*", "/",
+];
+
 var selected;
 for (var i = 0; i < suits.length; i++) {
     var suit = suits[i];
@@ -25,25 +28,69 @@ function newPile() {
     }
 
     cardsHolder.innerHTML = append;
-
-    function shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-        while (0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    }
-
     while (!solve(true)) {
         newPile();
     }
     
     solutionHolder.innerHTML = "";
+}
+
+function customCase() {
+    var userInput = document.getElementById("customCase").value;
+    var userInputCards = userInput.split(",");
+    if (userInputCards.length != 4) {
+        document.getElementById("customInputGroup").className += " has-error";
+        return;
+    }
+
+    var append = "";
+    var customSelected = [];
+    for (var i = 0; i < userInputCards.length; i++) {
+        var userInputCard = userInputCards[i].trim();
+        console.log(userInputCard);
+        var found = false;
+        for (var j = 0; j < cardsImages.length; j++) {
+            if (cardsImages[j].img == "card" + userInputCard + ".png") {
+                found = true;
+                append += "<img src=\"img/" + cardsImages[j].img + "\" class=\"image\">";
+                if (customSelected.indexOf(j) != -1) {
+                    console.log(customSelected.indexOf(j));
+                    console.log(customSelected);
+                    document.getElementById("customInputGroup").className += " has-error";
+                    return;
+                }
+
+                customSelected.push(j);
+            } 
+        }
+
+        if (!found) {
+            document.getElementById("customInputGroup").className += " has-error";
+            return;
+        }
+    }
+
+    selected = [];
+    for (var i = 0; i < customSelected.length; i++) {
+        selected[i] = cardsImages[customSelected[i]].val;
+    }
+
+    cardsHolder.innerHTML = append;
+    document.getElementById("customInputGroup").className = "input-group";
+    solutionHolder.innerHTML = "";
+}
+
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
 }
 
 function solve(dontShow) {
