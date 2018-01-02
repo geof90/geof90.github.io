@@ -47,15 +47,21 @@ function customCase() {
     var customSelected = [];
     for (var i = 0; i < userInputCards.length; i++) {
         var userInputCard = userInputCards[i].trim();
-        console.log(userInputCard);
+        if (/[CcDdHhSs][Aa\d]+/.test(userInputCard)) {
+            userInputCard = userInputCard
+                .toUpperCase()
+                .replace("C", "Clubs")
+                .replace("D", "Diamonds")
+                .replace("H", "Hearts")
+                .replace("S", "Spades");
+        }
+
         var found = false;
         for (var j = 0; j < cardsImages.length; j++) {
             if (cardsImages[j].img == "card" + userInputCard + ".png") {
                 found = true;
                 append += "<img src=\"img/" + cardsImages[j].img + "\" class=\"image\">";
                 if (customSelected.indexOf(j) != -1) {
-                    console.log(customSelected.indexOf(j));
-                    console.log(customSelected);
                     document.getElementById("customInputGroup").className += " has-error";
                     return;
                 }
