@@ -94,3 +94,10 @@ function contentChanged() {
     resultbox.innerHTML = content;
   }, 100);
 }
+
+function copyToClipboard() {
+  var range = document.getSelection().getRangeAt(0);
+  range.selectNode(document.getElementById("result"));
+  window.getSelection().addRange(range);
+  document.execCommand("copy")
+}
